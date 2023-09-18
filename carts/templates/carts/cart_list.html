@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="display-4">Cart</div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for cart in cart_list %}
+                <tr>
+                    <td class="d-flex align-items-center gap-2">
+                        <img src="{{ cart.items.product.image.url }}" alt="Product Image" class="img-fluid">
+                        <div>
+                            <h4 class="h6 mb-0">Product Title</h4>
+                            <small>Product Description</small>
+                        </div>
+                    </td>
+                    <td>$19.99</td>
+                    <td>
+                        <input type="number" class="form-control form-control-sm" value="1" min="1">
+                    </td>
+                    <td>$19.99</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3"><a href="#" class="btn btn-secondary"><i class="bi bi-arrow-left"></i>Continue
+                            Shopping</a>
+                    </td>
+                    <td colspan="3">
+                        <h5 class="">Cart Total: $69.97</h5>
+                        <a href="#" class="btn btn-primary">Checkout</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

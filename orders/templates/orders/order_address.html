@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="display-4">Select Address</div>
+
+    <form method="post" action="{% url 'order-address' pk=order.pk %}">
+        {% csrf_token %}
+
+        <ul class="list-group">
+            {% for address in addresses %}
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="radio" name="address" value="{{ address.id }}"
+                    id="id_address_{{ address.id }}" {% if address.is_default %} checked {% endif %}>
+
+                <label class="form-check-label" for="id_address_{{ address.id }}">
+                    <div>
+                        <p class="fw-bold">{{ address.name }} <span class="text-secondary">{{ address.mobile }}</span>
+                        </p>
+                        <p>
+                            {{ address.street }}, {{ address.city }} <br>
+                            {{ address.state }}, {{ address.country }} - {{ address.postal_code }}
+                        </p>
+                    </div>
+
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+
+
+        <button type="submit" class="btn btn-primary mt-4">Make Payment</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'no_sidebar_base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center">
+    <p class="display-4">Addresses</p>
+    <a type="button" href="{% url 'address-create' %}" class="btn btn-primary btn-sm ms-auto">Add Address</a>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for address in address_list %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ address.name }}
+
+                    {% if address.is_default %}
+                    <i class="bi bi-check-circle-fill"></i>
+                    {% endif %}
+                </h5>
+                <p class="card-subtitle">{{ address.mobile }}</p>
+                <p class="card-text">{{ address.street }}, City - {{ address.city }},
+                    {{ address.state }}, {{ address.country }} - {{ address.postal_code }}</p>
+
+                <div class="hstack gap-2">
+
+                    {% if not address.is_default %}
+                    <form method="post" action="{% url 'address-default' address.pk %}">
+                        {% csrf_token %}
+
+                        <button class="btn btn-primary btn-sm" type="submit">Make Default</button>
+                    </form>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'address-delete' address.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this address?')">Delete</button>
+                    </form>
+
+                    <a type="button" href="{% url 'address-update' address.pk %}"
+                        class="btn btn-warning btn-sm">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

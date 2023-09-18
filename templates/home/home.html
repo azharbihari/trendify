@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+
+{% block head %}
+<div class="rounded-3 mb-2 py-5">
+    <h1 class="display-4">Welcome to Trendify</h1>
+    <p class="lead">Discover the Latest Trends and Shop with Style</p>
+    <a class="btn btn-primary btn-lg" href="">Explore Products</a>
+</div>
+<hr>
+{% endblock %}
+
+{% block content %}
+<!-- <div class="row row-cols-1 row-cols-md-3 g-2">
+    {% for post in latest_posts %}
+    <div class="col">
+        <div class="card">
+            <img src="{{post.featured_image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <div class="hstack gap-1">
+                    {% for category in post.categories.all %}
+                    <a href="{% url 'category-detail' slug=category.slug %}">
+                        <span class="badge rounded-pill text-bg-primary">{{ category.name }}</span></a>
+                    {% endfor %}
+                </div>
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">
+                    <small class="text-body-secondary">{{ post.created_at | naturaltime}}</small>
+                </p>
+                <a href="{% url 'post-detail' slug=post.slug %}" class="text-decoration-none">Continue
+                    reading <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Sorry, no posts found.</p>
+    {% endfor %}
+</div> -->
+{% endblock %}
+
+
+{% block sidebar %}
+<!-- <p class="lead">Categories</p>
+<ul class="list-inline">
+    {% for category in category_list %}
+    <li class="list-inline-item">
+        <a href="{% url 'category-detail' slug=category.slug %}" class="link-primary text-decoration-none">
+            {{ category.name }}
+        </a>
+        <span class="badge bg-primary rounded-pill">{{ category.post_set.count }}</span>
+    </li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<p class="lead">Archives</p>
+<ul class="list-inline">
+    {% for archive in archive_list %}
+    <li class="list-inline-item">
+        <a href="{% url 'post-month-archive' year=archive.year|date:'Y' month=archive.month|date:'b' %}"
+            class="link-primary text-decoration-none">
+            {{ archive.month|date:"F Y" }}
+        </a> <span class="badge bg-primary rounded-pill">{{ archive.count }}</span>
+    </li>
+    {% endfor %}
+</ul> -->
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="display-4">Order Summary</div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Order Details</h2>
+            <p class="card-text">Order ID: {{ order.id }}</p>
+            <p class="card-text">Order Total: {{ order.total }}</p>
+            <!-- Add any other relevant order details -->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Shipping Address</h2>
+            <p class="card-text">Name: {{ order.address.name }}</p>
+            <p class="card-text">Mobile: {{ order.address.mobile }}</p>
+            <p class="card-text">Street: {{ order.address.street }}</p>
+            <p class="card-text">City: {{ order.address.city }}</p>
+            <p class="card-text">State: {{ order.address.state }}</p>
+            <p class="card-text">Postal Code: {{ order.address.postal_code }}</p>
+            <p class="card-text">Country: {{ order.address.country }}</p>
+            <!-- Add any other relevant address details -->
+        </div>
+    </div>
+
+    <div>
+        <button id="razorpay-button" class="btn btn-primary">Make Payment</button>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            var options = {
+                "key": "rzp_test_5zBzyMVEMIKeOT", // Enter the Key ID generated from the Dashboard
+                "amount": "{{ razorpay_order.amount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise.
+                "currency": "INR",
+                "name": "NotFirstNotWorst",
+                "description": "The Second Hand Store",
+                "image": "",
+                "order_id": "{{ razorpay_order.id }}", //This is a sample Order id. Pass the `id` obtained in the response of Step 1.
+                "callback_url": "{% url 'order-payment' pk=order.pk %}",
+            };
+
+            var razorpay = new Razorpay(options);
+            document.getElementById('razorpay-button').onclick = function (e) {
+                razorpay.open();
+                e.preventDefault();
+            }
+        </script>
+    </div>
+
+</div>
+{% endblock %}

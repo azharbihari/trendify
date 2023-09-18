@@ -1,0 +1,15 @@
+{% extends 'no_sidebar_base.html' %}
+
+{% block content %}
+<div class="display-4">Brands</div>
+<ul class="list-inline mt-5">
+    {% for brand in brand_list %}
+    <li class="list-inline-item">
+        <a href="{% url 'brand-detail' brand.slug %}" class="d-flex align-items-center text-decoration-none fs-5">
+            <img src="{{ brand.image.url }}" class="img-fluid me-2" alt="{{ brand.name }} logo" width="15">
+            {{ brand.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

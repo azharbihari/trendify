@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,11 +32,19 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.humanize',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig',
+    'brands.apps.BrandsConfig',
+    'categories.apps.CategoriesConfig',
+    'products.apps.ProductsConfig',
+    'carts.apps.CartsConfig',
+    'addresses.apps.AddressesConfig',
+    'orders.apps.OrdersConfig'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'accounts.middleware.RedirectAuthenticatedUserMiddleware'
 ]
 
 ROOT_URLCONF = 'trendify.urls'
@@ -54,7 +63,7 @@ ROOT_URLCONF = 'trendify.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,7 +126,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'accounts.Account'
+
+LOGIN_REDIRECT_URL = '/'
+
+
+DEFAULT_FROM_EMAIL = 'noreply@trendify.com'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'c0a67340b65af1'
+EMAIL_HOST_PASSWORD = 'f37b3276a70f2c'
+
+
+RAZORPAY_KEY_ID = 'rzp_test_5zBzyMVEMIKeOT'
+RAZORPAY_KEY_SECRET = 'tJZ0eSD4kfUecp1GRHnqv6du'
+
+APP_TITLE = 'Trendify'
+APP_VERSION = '1.0.0'

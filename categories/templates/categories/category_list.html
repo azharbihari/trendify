@@ -1,0 +1,15 @@
+{% extends 'no_sidebar_base.html' %}
+
+{% block content %}
+<div class="display-4">Categories</div>
+<ul class="list-inline mt-5">
+    {% for category in category_list %}
+    <li class="list-inline-item">
+        <a href="{% url 'category-detail' category.slug %}" class="d-flex align-items-center text-decoration-none fs-5">
+            <img src="{{ category.image.url }}" class="img-fluid me-1" alt="{{ category.name }} logo" width="15">
+            {{ category.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

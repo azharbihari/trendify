@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="display-4">{{ category.name }}</div>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+        {% for product in product_list %}
+        <div class="col">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-3 bg-light">
+                        <img src="https://lh3.googleusercontent.com/SjFYOoOjF40cw-fUdKddJ2RYv9MouDWx57Lnzmu3P3WYYky6x8oYT_cG78DzxyrVfN1Xt1h4Qg1JNUCrS8mfU3nqYzzQhpj8EA=w688"
+                            class="img-fluid rounded-start" alt="{{ product.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <a href="{% url 'product-detail' product.slug %}" class="link-primary text-decoration-none">
+                                <h5 class="card-title text-truncate">{{ product.name }}</h5>
+                            </a>
+                            <small class="badge text-bg-danger">67% off</small>
+                            <h4 class="card-text">
+                                ₹{{ product.price }}
+                                <small class="text-body-secondary text-decoration-line-through">
+                                    ₹{{ product.price }}</small>
+                            </h4>
+
+                            <div class="gap-2">
+                                <a href="{% url 'brand-detail' product.brand.slug %}"
+                                    class="link-primary text-decoration-none">{{ product.brand.name }}</a>
+                                <a href="{% url 'category-detail' product.category.slug %}"
+                                    class="link-primary text-decoration-none">{{ product.category.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card-body">
+                            <div class="vstack gap-2">
+                                <a href="#" class="btn btn-warning btn-sm">Add to Cart</a>
+                                <a href="#" class="btn btn-success btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'no_sidebar_base.html' %}
+
+{% block content %}
+<style>
+    ::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<div class="row g-4">
+    <div class="col-sm-5">
+        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+    </div>
+    <div class="col-sm-7" style="overflow-y: scroll; scrollbar-width: none; height: 512px;">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'product-list' %}">Products</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+            </ol>
+        </nav>
+
+
+        <h2 class="fs-1">{{ product.name }}</h2>
+
+        <div class="gap-2">
+            <a href="{% url 'brand-detail' product.brand.slug %}" class="card-link">
+                {{ product.brand.name }}</a>
+            <a href="{% url 'category-detail' product.category.slug %}" class="card-link">
+                {{ product.category.name }}</a>
+        </div>
+
+        <div class="card-text fs-1">
+            ₹{{ product.price }}
+            <p class="fs-4">
+                <span class="text-body-secondary text-decoration-line-through">
+                    ₹{{ product.price }}
+                </span>
+                <span class="text-danger ms-2">67% off</span>
+            </p>
+        </div>
+
+        <div class="gap-2 d-flex">
+            <form method="POST" action="{% url 'add-to-cart' slug=product.slug %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">Add to Cart</button>
+            </form>
+
+            <form method="POST" action="{% url 'add-to-cart' slug=product.slug %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Buy Now</button>
+            </form>
+        </div>
+
+        <div class="mt-5">
+            <h4>Description</h4>
+            <p class="">{{ product.description }}</p>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}
